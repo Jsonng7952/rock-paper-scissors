@@ -7,43 +7,43 @@ function playRound(playerSelection, computerSelection){
     playerSelection = playerSelection.toLowerCase();
 
     if(playerSelection === computerSelection){
-        result.textContent = `Tie! ${playerSelection} ties ${computerSelection}!`;
-        score.textContent = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
+        result.innerText = `Tie! ${playerSelection} ties ${computerSelection}!`;
+        score.innerText = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
     }
     else if(playerSelection === "rock"){
         if(computerSelection === "scissor"){
-            result.textContent = `You Win! ${playerSelection} beats ${computerSelection}!`;
+            result.innerText = `You Win! ${playerSelection} beats ${computerSelection}!`;
             playerScore++;
-            score.textContent = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
+            score.innerText = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
         }
         else {
-            result.textContent = `You Lose! ${computerSelection} beats ${playerSelection}!`;
+            result.innerText = `You Lose! ${computerSelection} beats ${playerSelection}!`;
             compScore++;
-            score.textContent = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
+            score.innerText = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
         }
     }
     else if(playerSelection === "paper"){
         if(computerSelection === "rock"){
-            result.textContent = `You Win! ${playerSelection} beats ${computerSelection}!`;
+            result.innerText = `You Win! ${playerSelection} beats ${computerSelection}!`;
             playerScore++;
-            score.textContent = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
+            score.innerText = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
         }
         else {
-            result.textContent = `You Lose! ${computerSelection} beats ${playerSelection}!`;
+            result.innerText = `You Lose! ${computerSelection} beats ${playerSelection}!`;
             compScore++;
-            score.textContent = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
+            score.innerText = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
         }
     }
     else if(playerSelection === "scissor"){
         if(computerSelection === "paper"){
-            result.textContent = `You Win! ${playerSelection} beats ${computerSelection}!`;
+            result.innerText = `You Win! ${playerSelection} beats ${computerSelection}!`;
             playerScore++;
-            score.textContent = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
+            score.innerText = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
         }
         else {
-            result.textContent = `You Lose! ${computerSelection} beats ${playerSelection}!`;
+            result.innerText = `You Lose! ${computerSelection} beats ${playerSelection}!`;
             compScore++;
-            score.textContent = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
+            score.innerText = `Game ${++gameNum} | Player: ${playerScore} | Computer: ${compScore}`;
         }
     }
     else {
@@ -54,15 +54,15 @@ function playRound(playerSelection, computerSelection){
 
 function checkWinner() {
     if(playerScore === compScore){
-        outcome.textContent = `Tie Game!`;
+        outcome.innerText = `Tie Game!`;
         outcome.style = "font-size: larger; font-weight: bold";
     }
     else if(playerScore > compScore){
-        outcome.textContent = `Player Win!`;
+        outcome.innerText = `Player Win!`;
         outcome.style = "font-size: larger; font-weight: bold";
     }
     else {
-        outcome.textContent = `Computer Win!`;
+        outcome.innerText = `Computer Win!`;
         outcome.style = "font-size: larger; font-weight: bold";
     }        
 }
@@ -72,8 +72,9 @@ function afterButtonClick(button){
     let computerSelection = computerPlay();
     playRound(playerSelection, computerSelection);
 
-    choice.textContent = `Player: [${playerSelection.toLowerCase()}] | Computer: [${computerSelection}]`;
+    choice.innerText = `Player: [${playerSelection.toLowerCase()}] | Computer: [${computerSelection}]`;
 
+    // After 5 games, check for winner and disable buttons.
     if(gameNum === 5){
         checkWinner();
         buttons.forEach((button) => {
@@ -91,16 +92,23 @@ const choice = document.querySelector('.choice');
 const result = document.querySelector('.result');
 const outcome = document.querySelector('.outcome');
 
+// Add listeners for rock, paper, and scissor.
 const buttons = document.querySelectorAll('#rock, #paper, #scissor');
 buttons.forEach((button) => {
     button.addEventListener('click', () => afterButtonClick(button))
 });
 
-const resetBtn = document.querySelector('.btn-container #reset');
+// Reset the game
+const resetBtn = document.querySelector('#reset');
 resetBtn.addEventListener('click', () => {
-    playerScore, compScore, gameNum = 0;
+    playerScore = 0, compScore = 0, gameNum = 0;
     score.innerText = "Game: 0 | Player: 0 | Computer: 0";
     choice.innerText = "Pick Your Choice: Rock, Paper or Scissor."
     result.innerText = ""
     outcome.innerText = "";
+
+    buttons.forEach((button) => {
+        button.disabled = false;
+    });
+
 })
