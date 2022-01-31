@@ -10,4 +10,14 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+}
+
+.outcome {
+    font-size: larger; 
+    font-weight: bold;
+}
+
+#rock , #paper, #scissor{
+    border-color: black;
 }
